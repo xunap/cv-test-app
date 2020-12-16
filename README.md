@@ -69,40 +69,56 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 --------------------------------------------
 
-# Covid19 Stats App #
+# CV Test App #
 
-Our goal is to have a simple web app which offers information about Covid19 statistics per country.
+Assignment for Software Engineer @ Enhancv
+This role is expected to work on the Enhancv resume editor, the public-facing website, our new products, sometimes devops and even product-related research. We ship small & quickly to bring value to customers. Impact, rather than lines of code (or efficiency), matters. Have that in mind while working on the assignment (but don’t get sloppy).
 
-API: https://covid19api.com/
+We’ve created this sample brief for a feature that analyzes a user's content and also suggests how to improve it (you might have seen it on enhancv.com). We also have screens and guidance.
 
-Initial screen should consist of a single button, when clicked, an excerpt of the most recent data for at least 10 countries must be populated as a list.
-The user should be able to click on a specific country and get detailed information about that country's current stats on the right side of the page. 
-Bellow the detailed view, there should be a button, which offers a modal view and historical data for that country.
+Use a React-based tech stack to implement the small app. The assignment doesn’t require any backend / persistence logic, nor should it behave like our real app. We do expect your solution to be pixel perfect compared to the screens provided.
 
-User should be able to sort already populated list by the number of infected people. 
+Please submit as you’d intend to ship to production. Reach out anytime for questions.
 
-The detail and modal views must be accessible by their own unique urls.
 
-UX, styling and attention to detail is up to you.
+What problem are we solving and why?
+Writing content often comes with language mistakes which people miss. Sometimes those mistakes can be the reason to not hear back from a recruiter.
 
-**Bonus**: 
-In DEV Mode Only - Making sure the browser will not do OPTIONS requests in the Network tab when getting remote data via fetch, configured to make POST requests.
+We want to make sure that Enhancv’s users don’t miss the mistakes on their resumes and send a polished document to the recruiter.
+User Stories
+As an Enhancv user I want to see suggestions on how to write my content better in order to make it sound more professional.
+As an Enhancv user I want to be able to ignore some of the suggestions shown which I deem irrelevant.
+What do we want to measure
+If user viewed a mistake
+If a correction was made after viewing a mistake
+If a mistake was ignored
+[success criteria] additional revenue from feature -- not part of this assignment
+Screens / Figma project
+https://www.figma.com/file/gn8p13i4itbJsp4BqeFMc8/Enhancv-for-Devs?node-id=0%3A1 
+Additional guidance
+None of the navbar should be clickable (notifications, user icon). The resume title and save state are static texts as well. We only care about styling here, not about real interactive elements (like one enhancv.com). The only interactive element is the resume and the experience item. However, that doesn’t mean all code should be in one file.
 
-### What can be used:
- 
-* ReactJS
-* Redux
-* Webpack
-* Any other library considered necessary
+[Editable text fields] 
+Text fields in the resume should be editable and the Company description field should support text decoration like bold/underline/italic (no need to implement buttons, just ctrl/cmd+b/i/u). We do not expect any of the save functionality to work.
 
-### What cannot be used
-* Any UI libraries (ex. Material-UI)
+[Add/remove experience items] 
+Focusing a field in Experience item should show a popover with Add/remove buttons. The functionality of these buttons should be implemented (they should remove items or add new one), however we do not expect any of the save functionality to work.
 
----
+[Content mistakes] 
+The content analysis (CA) feature has an endpoint that analyzes the Experience Company Description input and returns a range / position to be highlighted in red (index of the start and the end) and suggestions how to improve this mistake as a string. We do not expect you to integrate the endpoint. Just mock it. Here is an example input and output.
 
-Please upload your complete source code to a GitHub repo.
+Input in experience’s description: I've done many projects
+Output: 
 
-### How we will test your code:
+[
+  {
+    "range": [10,23],
+    "message": "This is vague. Instead of “Managed projects for many clients”, say “Managed projects for 10 clients including BlueBank.”"
+  },
+  {
+    "range": [0,23],
+    "message": "Include a valuable metric if possible. For example: \"Increased revenue by 20% within one month.\"."
+  }
+]
 
-1. `git clone`
-2. `yarn && yarn run start`
+By entering “I've done many projects” the whole field should be highlighted in red, because the range of the second mistake is [0, 23].  By hovering over it, the text of the second mistake should be displayed in the popover. Hovering over “many projects” should display the message of the first mistake in the popover. 

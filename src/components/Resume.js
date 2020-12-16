@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import ContentEditable from 'react-contenteditable';
-// import { checkContent } from '../api';
 import ExperienceList from './ExperienceList';
 
 const Resume = () => {
-  const [title, setTitle] = useState('Your resume');
-  const [name, setName] = useState('Your Name');
-  const [role, setRole] = useState('Your next desired role?');
-  const [phone, setPhone] = useState('Phone');
-  const [email, setEmail] = useState('Email');
-  const [website, setWebsite] = useState('Website/Link');
-  const [location, setLocation] = useState('Location');
+  const yourResumeDefault = 'Your resume';
+  const yourNameDefault = 'Your Name';
+  const yourRoleDefault = 'Your next desired role?';
+  const phoneDefault = 'Phone';
+  const emailDefault = 'Email';
+  const websiteLinkDefault = 'Website/Link';
+  const locationDefault = 'Location';
+
+  const [title, setTitle] = useState(yourResumeDefault);
+  const [name, setName] = useState(yourNameDefault);
+  const [role, setRole] = useState(yourRoleDefault);
+  const [phone, setPhone] = useState(phoneDefault);
+  const [email, setEmail] = useState(emailDefault);
+  const [websiteLink, setWebsiteLink] = useState(websiteLinkDefault);
+  const [location, setLocation] = useState(locationDefault);
 
   const [lastEdited, setLastEdited] = useState(moment());
   const [lastEditedDisplayValue, setLastEditedDisplayValue] = useState('just now');
@@ -36,6 +43,7 @@ const Resume = () => {
 
   useEffect(() => {
     setLastEditedDisplayValue('just now');
+
     const oneMinuteAgo = moment().subtract(1, 'minutes');
     const interval = setInterval(() => updateLastEditedDisplayValue(oneMinuteAgo), 60000);
 
@@ -44,7 +52,7 @@ const Resume = () => {
 
   useEffect(() => {
     setLastEdited(moment());
-  }, [name, role, phone, email, website, location]);
+  }, [name, role, phone, email, websiteLink, location]);
 
   return (
     <div className="content-mid">
@@ -64,23 +72,23 @@ const Resume = () => {
       <div className="row main-page">
         <div className="col">
           <div className="row">
-            <div className="name">
-              <ContentEditable html={name} onChange={e => updateTitle(e.target.value)} />
+            <div className={`name ${name === yourNameDefault ? 'opaque' : ''}`}>
+              <ContentEditable className="name-text" html={name} onChange={e => updateTitle(e.target.value)} />
             </div>
           </div>
           <div className="row">
-            <div className="your-next-desired-role">
+            <div className={`role ${role === yourRoleDefault ? 'opaque' : ''}`}>
               <ContentEditable html={role} onChange={e => setRole(e.target.value)} />
             </div>
           </div>
           <div className="row user-details-wrapper">
-            <div className="col phone-wrapper">
+            <div className={`col phone-wrapper ${phone === phoneDefault ? 'opaque' : ''}`}>
               <div className="phone-icon">
                 <i className="fas fa-phone-alt" />
               </div>
               <ContentEditable html={phone} onChange={e => setPhone(e.target.value)} />
             </div>
-            <div className="col email-wrapper">
+            <div className={`col email-wrapper ${email === emailDefault ? 'opaque' : ''}`}>
               <div className="email-icon">
                 <i className="fas fa-at" />
               </div>
@@ -88,13 +96,13 @@ const Resume = () => {
             </div>
           </div>
           <div className="row user-details-wrapper">
-            <div className="col website-link-wrapper">
+            <div className={`col website-link-wrapper ${websiteLink === websiteLinkDefault ? 'opaque' : ''}`}>
               <div className="website-link-icon">
                 <i className="fas fa-link" />
               </div>
-              <ContentEditable html={website} onChange={e => setWebsite(e.target.value)} />
+              <ContentEditable html={websiteLink} onChange={e => setWebsiteLink(e.target.value)} />
             </div>
-            <div className="col location-wrapper">
+            <div className={`col location-wrapper ${location === locationDefault ? 'opaque' : ''}`}>
               <div className="location-icon">
                 <i className="fas fa-map-marker-alt" />
               </div>

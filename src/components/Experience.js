@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Tooltip from 'react-tooltip-lite';
-// import { v4 as uuidv4 } from 'uuid';
 import reactHtmlReplace from 'react-html-replace';
-// import { checkContent } from '../api';
-
-// const checkContentServiceFields = ['title', 'companyName', 'companyDescription'];
 
 const Experience = ({
   title,
@@ -16,34 +12,47 @@ const Experience = ({
   onNew,
   onDelete,
   isEditing,
+  defaultItem,
   setExpItemValue,
   contentErrors,
+  ignoreContentError,
+  updateTextWithContentError,
   ...moreProps
 }) => {
   const renderText = (key, text) => {
     const contentErrorsForCurKey = contentErrors.filter(({ key: contentErrorKey }) => contentErrorKey === key);
     if (!contentErrorsForCurKey.length) {
       return (
-        <span suppressContentEditableWarning contentEditable onBlur={e => setExpItemValue(key, e.target.innerHTML)} dangerouslySetInnerHTML={{ __html: text }} />
+        <span
+          suppressContentEditableWarning
+          contentEditable={contentErrors.length === 0}
+          onBlur={e => setExpItemValue(key, e.target.innerHTML)}
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
       );
     }
 
     const transformSpansToTooltips = text.split('');
 
     contentErrorsForCurKey.forEach(({ id, range, message }) => {
-      transformSpansToTooltips[range[0]] = `<span data-id="${id}">`.concat(transformSpansToTooltips[range[0]]);
+      transformSpansToTooltips[range[0]] = `<span data-id="${id}" data-message="${message}">`.concat(transformSpansToTooltips[range[0]]);
       transformSpansToTooltips[range[1]] = '</span>'.concat(transformSpansToTooltips[range[1]]);
     });
 
     const transformedHtml = transformSpansToTooltips.join('');
 
     return (
-      <span suppressContentEditableWarning contentEditable onBlur={e => setExpItemValue(key, e.target.innerHTML)}>
+      <span
+        suppressContentEditableWarning
+        contentEditable={contentErrors.length === 0}
+        onBlur={e => setExpItemValue(key, e.target.innerHTML)}
+      >
         {reactHtmlReplace(transformedHtml, (tag, attr) => {
-          debugger;
-          if (tag === 'span') {
+          if (tag === 'span' && attr['data-id']) {
             const curContentError = contentErrorsForCurKey.find(({ id }) => id === attr['data-id']);
-            const { text, message, range } = curContentError;
+            if (!curContentError) {
+              return attr.value;
+            }
 
             const contentImprovement = (
               <div className="content-improvement">
@@ -53,23 +62,29 @@ const Experience = ({
                     <span className="content-improvement-text">Content Improvement</span>
                   </div>
                   <div className="col" style={{ textAlign: 'end' }}>
-                    <input type="checkbox" className="content-message-ignore-checkbox" onChange={() => {}} />
+                    <input type="checkbox" className="content-message-ignore-checkbox" onChange={ignoreContentError.bind(this, attr['data-id'])} />
                     <span className="content-message-ignore-text">Ignore</span>
                   </div>
                 </div>
                 <div className="row">
-                  <span className="content-message-text">{attr.message}</span>
+                  <span className="content-message-text">{attr['data-message']}</span>
                 </div>
               </div>
             );
 
             return (
-              <Tooltip tagName="span" className="error" direction="bottom" content={contentImprovement}>
-                <span onInput={() => { console.log('A correction was made'); }}>{attr.value}</span>
+              <Tooltip key={attr['data-id']} tagName="span" direction="bottom" content={contentImprovement}>
+                <span
+                  className="error"
+                  contentEditable
+                  suppressContentEditableWarning
+                  onInput={e => updateTextWithContentError(attr['data-id'], key, e.target.innerText)}
+                >
+                  {attr.value}
+                </span>
               </Tooltip>
             );
           }
-          debugger;
         })}
       </span>
     );
@@ -88,28 +103,28 @@ const Experience = ({
       </div>
       <div className="experience-item-details-wrapper">
         <div className="row">
-          <div className="title">
+          <div className={`col title ${title === defaultItem.title ? 'opaque' : ''}`}>
             {renderText('title', title)}
           </div>
         </div>
-        <div className="row company-name">
+        <div className={`row company-name ${companyName === defaultItem.companyName ? 'opaque' : ''}`}>
           {renderText('companyName', companyName)}
         </div>
         <div className="row company-date-place-wrapper">
-          <div className="date-wrapper">
+          <div className={`date-wrapper ${datePeriod === defaultItem.datePeriod ? 'opaque' : ''}`}>
             <div className="date-icon">
               <i className="fas fa-calendar" />
             </div>
             {renderText('datePeriod', datePeriod)}
           </div>
-          <div className="location-wrapper">
+          <div className={`location-wrapper ${location === defaultItem.location ? 'opaque' : ''}`}>
             <div className="location-icon">
               <i className="fas fa-map-marker-alt" />
             </div>
             {renderText('location', location)}
           </div>
         </div>
-        <div className="row company-description">
+        <div className={`row company-description ${companyDescription === defaultItem.companyDescription ? 'opaque' : ''}`}>
           {renderText('companyDescription', companyDescription)}
         </div>
       </div>
@@ -125,10 +140,13 @@ Experience.propTypes = {
   companyDescription: PropTypes.string,
   default: PropTypes.bool,
   isEditing: PropTypes.bool,
+  defaultItem: PropTypes.object,
   onNew: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   setExpItemValue: PropTypes.func.isRequired,
   contentErrors: PropTypes.array.isRequired,
+  ignoreContentError: PropTypes.func.isRequired,
+  updateTextWithContentError: PropTypes.func.isRequired,
 };
 
 export default React.memo(Experience);

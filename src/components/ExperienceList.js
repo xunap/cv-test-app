@@ -11,7 +11,7 @@ const ExperienceList = ({ setLastEdited }) => {
     title: 'Title',
     companyName: 'Company Name',
     datePeriod: 'Date period',
-    location: 'Location',
+    location: 'New York, NY',
     companyDescription: 'Company Description',
     id: uuidv4(),
   };
@@ -19,6 +19,7 @@ const ExperienceList = ({ setLastEdited }) => {
   const [items, setItems] = useState([defaultItem]);
   const [editIndex, setEditIndex] = useState(-1);
   const [contentErrors, setContentErrors] = useState([]);
+
   const minItems = 1;
   const maxItems = 7;
 
@@ -37,16 +38,18 @@ const ExperienceList = ({ setLastEdited }) => {
 
     items.splice(i, 1);
     setItems(items);
+
     setEditIndex(-1);
   };
 
   const updateContentErrors = (index, key, text) => {
-    if (checkContentServiceFields.includes(key) && !text.includes('class="error"')) {
+    if (checkContentServiceFields.includes(key)) {
       const contentErrorsFromApi = checkContent(text);
-      if (contentErrorsFromApi) {
+
+      if (contentErrorsFromApi.length) {
         const newContentErrors = [];
         contentErrorsFromApi.forEach(({ id, range, message }) => {
-          const contentErr = {
+          const contentError = {
             id,
             index,
             key,
@@ -56,7 +59,9 @@ const ExperienceList = ({ setLastEdited }) => {
             ignored: false,
           };
 
-          newContentErrors.push(contentErr);
+          if (!contentErrors.some(contentErr => contentErr.message === message)) {
+            newContentErrors.push(contentError);
+          }
         });
 
         setContentErrors([...contentErrors, ...newContentErrors]);
@@ -66,11 +71,44 @@ const ExperienceList = ({ setLastEdited }) => {
 
   const setExpItemValue = (index, key, value) => {
     items[index][key] = value;
-    if (key === 'companyName') console.log(value);
     setItems(items);
+
     setLastEdited();
 
     updateContentErrors(index, key, value);
+  };
+
+  const ignoreContentError = (id) => {
+    const updatedContentErrors = contentErrors
+      .map((contentErr) =>
+        contentErr.id === id ? {
+          ...contentErr,
+          ignored: true,
+        } : contentErr);
+
+    setContentErrors(updatedContentErrors);
+
+    setLastEdited();
+
+    console.log('Content mistake ', id, ' was ignored.');
+  };
+
+  const updateTextWithContentError = (index, id, key, value) => {
+    const updatedContentErrors = contentErrors.filter((contentErr) => contentErr.id !== id);
+    setContentErrors(updatedContentErrors);
+
+    const contentErr = contentErrors.find((contentErr) => contentErr.id === id);
+
+    const { text, range } = contentErr;
+    const badText = text.substring(range[0], range[1]);
+    const newText = items[index][key].replace(badText, value);
+
+    items[index][key] = newText;
+    setItems(items);
+
+    setLastEdited();
+
+    console.log('Content mistake ', id, ' was corrected.');
   };
 
   const onMouseEnter = (index) => {
@@ -95,12 +133,15 @@ const ExperienceList = ({ setLastEdited }) => {
           location={location}
           companyDescription={companyDescription}
           isEditing={editIndex === i}
+          defaultItem={defaultItem}
           onNew={onNew}
           onDelete={onDelete.bind(this, i)}
           onMouseEnter={onMouseEnter.bind(this, i)}
           onMouseLeave={onMouseLeave}
           setExpItemValue={setExpItemValue.bind(this, i)}
-          contentErrors={contentErrors.filter(({ index }) => index === i)}
+          contentErrors={contentErrors.filter(({ index, ignored }) => index === i && !ignored)}
+          ignoreContentError={ignoreContentError}
+          updateTextWithContentError={updateTextWithContentError.bind(this, i)}
         />
       ))
     }
