@@ -1,0 +1,408 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black !important;
+}
+
+span {
+  vertical-align: middle;
+}
+
+button {
+  outline: none;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+.grid-row {
+  display: grid;
+  grid-template-columns: max-content auto max-content;
+  grid-template-areas: "content-left content-mid content-right";
+}
+
+.content-left {
+  grid-area: content-left;
+}
+
+.content-mid {
+  grid-area: content-mid;
+  margin-bottom: 100px;
+}
+
+.content-right {
+  grid-area: content-right;
+}
+
+.content-mid > .row.header {
+  background-color: #eee;
+  margin-top: 45px;
+  margin-bottom: 25px;
+}
+
+.content-mid > .row {
+  background-color: white;
+}
+
+ul > li {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+ul {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.navbar-left, .navbar-mid, .navbar-right {
+  background-color: white;
+  height: 43px;
+}
+
+.nav-link {
+  padding: 4px !important;
+}
+
+.logo {
+  height: 40px;
+}
+
+.error {
+  background-color: rgba(235, 87, 87, 0.33);
+  margin-top: -4px;
+  display: inline-block;
+}
+
+.error:hover {
+  background-color: rgba(235, 87, 87, 0.66);
+}
+
+.container {
+  background-color: #eee;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-item {
+  font-family: Inter;
+  font-size: 14px;
+  color: #232528;
+  padding: 0 4px;
+}
+
+.row {
+  display: flex;
+}
+
+.col {
+  flex: 1;
+  padding: 1px 0;
+}
+
+.main-page {
+  height: 1230px;
+  padding: 50px;
+}
+
+.resume-name-wrapper {
+  text-align: left;
+  color: #333;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 14px;
+  padding-top: 4px;
+}
+
+.your-resume {
+  color: #bdbdbd;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0 8px;
+}
+
+.saved {
+  font-family: Inter;
+  font-size: 12px;
+  color: #232528;
+}
+
+.last-edited-wrapper {
+  text-align: right;
+}
+
+.last-edited-text, .last-edited-date {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 12px;
+  color: #bdbdbd;
+}
+
+.user-details-wrapper {
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 12px;
+  color: #828282;
+}
+
+.phone-icon, .email-icon, .website-link-icon, .location-icon, .date-icon {
+  color: #3f9cdc;
+  float: left;
+  width: 35px;
+  font-size: 16px;
+  text-align: center;
+  margin-left: -7px;
+}
+
+.company-date-place-wrapper {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 12px;
+  color: #828282;
+}
+
+.date-wrapper {
+  margin-right: 13px;
+}
+
+.name {
+  font-family: Rubik;
+  font-size: 42px;
+  font-weight: 500;
+  color: #2D3639;
+  text-transform: uppercase;
+}
+
+.your-next-desired-role {
+  font-family: Rubik;
+  font-size: 21px;
+  font-weight: 500;
+  color: #3f9cdc;
+  padding-bottom: 20px;
+}
+
+.experience {
+  font-family: Rubik;
+  font-size: 30px;
+  font-weight: 500;
+  width: 120%;
+  color: #2D3639;
+  border-bottom: 4px solid #2D3639;
+  margin-top: 30px;
+  position: relative;
+  /* z-index: ; */
+}
+
+.experience-item {
+  width: 131%;
+  /* height: 135px; */
+  /* box-sizing: border-box; */
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin-left: -20px;
+  padding: 0 18px;
+  /* top: -36px; */
+  position: relative;
+  z-index: 0;
+}
+
+.experience-item.hover {
+  /* top: -36px; */
+  border: 1px solid #56BD94;
+  z-index: 2;
+}
+
+.experience-item-details-wrapper {
+  margin-top: -36px;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background: black;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.title {
+  font-family: Rubik;
+  font-size: 22px;
+  color: #828282;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.company-name {
+  font-family: Rubik;
+  font-size: 16px;
+  color: #3F9CDC;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.company-description {
+  font-family: Inter;
+  font-size: 13px;
+  color: #828282;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.fa-check {
+  color: #384347;
+  font-size: 12px;
+}
+
+.fa-bell {
+  color: #333;
+  font-size: 20px;
+}
+
+.fa-user-circle {
+  color: lightgray;
+  font-size: 40px;
+}
+
+.fa-list-alt {
+  font-size: 16px;
+  color: #2D3639;
+}
+
+.main-user-image {
+  text-align: end;
+}
+
+.main-user-image .fa-user-circle {
+  font-size: 142px;
+}
+
+.fa-caret-down {
+  color: #333;
+}
+
+.fa-check {
+  color: #555;
+  padding: 0 10px;
+}
+
+.experience-new-entry-wrapper {
+  z-index: 1;
+  color: white;
+  background-color: #56BD94;
+  border-radius: 50px;
+  position: relative;
+  top: -20px;
+  left: 150px;
+  height: 36px;
+  display: inline-block;
+  visibility: visible;
+}
+
+.experience-new-entry-wrapper.hidden {
+  visibility: hidden;
+}
+
+.experience-new-entry-text {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 15px;
+  padding: 6px 8px 8px 0;
+  line-height: 22px;
+  display: inline-block;
+  cursor: default;
+  background-color: #56BD94;
+}
+
+.experience-new-entry-plus {
+  font-size: 16px;
+  padding: 10px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  color: white;
+  background-color: #56BD94;
+  border: none;
+}
+
+.experience-new-entry-delete {
+  font-size: 16px;
+  color: #444444;
+  background-color: white;
+  padding: 10px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  background-color: white;
+  border: none;
+}
+
+.experience-new-entry-plus:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.experience-new-entry-delete:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.content-improvement {
+  width: 360px;
+}
+
+.content-improvement-text {
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 12px;
+  white-space: nowrap;
+  display: inline-block;
+  margin-left: 6px;
+  margin-bottom: 3px;
+}
+
+.content-message-text {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.content-message-ignore-text {
+  font-family: Rubik;
+  font-weight: 400;
+  font-size: 12px;
+  display: inline-block;
+  margin-left: 6px;
+  margin-bottom: 7px;
+}
+
+.content-message-ignore-checkbox {
+  height: 16px;
+  width: 16px;
+}
+
+.react-tooltip-lite {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top: -9px;
+  z-index: 999999 !important;
+}
+
+.react-tooltip-lite-arrow {
+  margin-top: -9px;
+  color: white;
+}

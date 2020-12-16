@@ -1,0 +1,105 @@
+{
+  "name": "covid-stats-app",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:8080",
+  "dependencies": {
+    "@material-ui/core": "^4.9.13",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.51",
+    "@popperjs/core": "^2.5.4",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "apexcharts": "^3.22.3",
+    "axios": "^0.21.0",
+    "bootstrap": "^4.4.1",
+    "concurrently": "^5.2.0",
+    "country-flags-svg": "^1.1.0",
+    "cross-fetch": "^3.0.4",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "lodash.debounce": "^4.0.8",
+    "moment": "^2.29.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-apexcharts": "^1.3.7",
+    "react-charts": "^2.0.0-beta.7",
+    "react-contenteditable": "^3.3.5",
+    "react-dom": "^16.13.1",
+    "react-html-replace": "^0.1.6",
+    "react-popper": "^2.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-tooltip-lite": "^1.12.0",
+    "reactstrap": "^8.7.1",
+    "underscore": "^1.12.0",
+    "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "client": "react-scripts start --no-cache",
+    "server": "node src/server.js",
+    "start": "npm run client",
+    "build": "react-scripts build",
+    "test": "react-scripts test --no-cache",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "airbnb"
+    ],
+    "rules": {
+      "linebreak-style": 0,
+      "object-curly-newline": 0,
+      "no-confusing-arrow": 0,
+      "no-unused-vars": 0,
+      "no-plusplus": 0,
+      "no-console": 0,
+      "max-len": 0,
+      "camelcase": 0,
+      "implicit-arrow-linebreak": 0,
+      "function-paren-newline": 0,
+      "no-param-reassign": 0,
+      "operator-linebreak": 0,
+      "arrow-parens": 0,
+      "arrow-body-style": 0,
+      "consistent-return": 0,
+      "no-empty": 0,
+      "no-shadow": 0,
+      "react/no-unused-state": 0,
+      "react/no-danger": 0,
+      "react/no-array-index-key": 0,
+      "react/jsx-filename-extension": 0,
+      "react/jsx-wrap-multilines": 0,
+      "react/jsx-curly-newline": 0,
+      "react/forbid-prop-types": 0,
+      "react/button-has-type": 0,
+      "react/state-in-constructor": 0,
+      "react/require-default-props": 0,
+      "react/jsx-one-expression-per-line": 0,
+      "react/jsx-no-bind": 0,
+      "react/jsx-props-no-spreading": 0,
+      "react/destructuring-assignment": 0,
+      "jsx-a11y/anchor-is-valid": 0
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "nodemon": "^2.0.3"
+  }
+}
